@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Log in</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body onLoad="init()" ondragstart="return false" oncontextmenu="return false" onselectstart="return false">
+<section class="container">
+  <div class="heading">
+    <img class="heading_img" src="https://iconfont.alicdn.com/s/1b8cdd11-88e3-4e9a-86bb-5bb4314a472b_origin.svg">
+    <h1 class="heading_title">Log in</h1>
+  </div>
+  <form class="form">
+    <div>
+      <label class="form_label" for="todo">~ Today I want to do ~</label>
+      <input class="form_input"
+           type="text" 
+            id="2" placeholder="Password"
+           id="todo" 
+           name="to-do"
+           size="30"
+           required>
+      <button class="button" onclick=javascritpt:jump()><span>Submit</span></button>
+    </div>
+  </form>
+  <div>
+    <ul class="toDoList"></ul>
+  </div>
+</section>
+
+<!-- partial -->
+  <script src="./script.js"></script>
+  <script>
+  function jump(){
+      var i="123456";
+      if(document.getElementById("2").value==i){
+        window.location.href="page/index.html";
+      }
+      else if(document.getElementById("2").value==""){
+        alert("请输入六位身份密码！");
+      }
+      else{
+        alert("密码错误，请重新输入！");
+      }
+    }
+
+  </script>
+</body>
+</html>

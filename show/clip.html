@@ -1,0 +1,400 @@
+  <html >
+<head>
+  <meta charset="UTF-8">
+  <title>...</title>
+  
+  <style>
+    *, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+}
+
+.slider {
+  position: relative;
+  height: 100vh;
+}
+.slider__slides {
+  z-index: 1;
+  position: relative;
+  height: 100%;
+}
+.slider__control {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.slider__control--right {
+  left: 95%;
+}
+.slider__control:hover {
+  background-color: #2da6ff;
+}
+.slider__control-line {
+  position: absolute;
+  left: 23px;
+  top: 50%;
+  width: 3px;
+  height: 14px;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.slider__control-line:nth-child(2) {
+  -webkit-transform: translateY(1px) rotate(-135deg);
+          transform: translateY(1px) rotate(-135deg);
+}
+.slider__control--right .slider__control-line {
+  left: 37px;
+  -webkit-transform-origin: 1px 0;
+          transform-origin: 1px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.slider__control--right .slider__control-line:nth-child(2) {
+  -webkit-transform: translateY(1px) rotate(135deg);
+          transform: translateY(1px) rotate(135deg);
+}
+.slider__control-line:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #e2e2e2;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.slider__control:hover .slider__control-line:after {
+  background-color: #fff;
+}
+.slider__control.a--rotation .slider__control-line:after {
+  -webkit-animation: arrowLineRotation 0.49s;
+          animation: arrowLineRotation 0.49s;
+}
+.slider__control.a--rotation .slider__control-line:nth-child(1):after {
+  -webkit-animation: arrowLineRotationRev 0.49s;
+          animation: arrowLineRotationRev 0.49s;
+}
+
+@-webkit-keyframes arrowLineRotation {
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+
+@keyframes arrowLineRotation {
+  to {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+}
+@-webkit-keyframes arrowLineRotationRev {
+  to {
+    -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+  }
+}
+@keyframes arrowLineRotationRev {
+  to {
+    -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+  }
+}
+.slide {
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 150vmax;
+  height: 150vmax;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-radius: 50%;
+  -webkit-transition: -webkit-clip-path 0s 0.91s;
+  transition: -webkit-clip-path 0s 0.91s;
+  transition: clip-path 0s 0.91s;
+  transition: clip-path 0s 0.91s, -webkit-clip-path 0s 0.91s;
+  -webkit-clip-path: circle(30px at 120vw 50%);
+          clip-path: circle(30px at 120vw 50%);
+}
+.slide.s--prev {
+  -webkit-clip-path: circle(30px at 30vw 50%);
+          clip-path: circle(30px at 30vw 50%);
+}
+.slide.s--active {
+  z-index: 1;
+  -webkit-transition: -webkit-clip-path 1.3s;
+  transition: -webkit-clip-path 1.3s;
+  transition: clip-path 1.3s;
+  transition: clip-path 1.3s, -webkit-clip-path 1.3s;
+  -webkit-clip-path: circle(120vmax at 120vw 50%);
+          clip-path: circle(120vmax at 120vw 50%);
+}
+.slide.s--active.s--active-prev {
+  -webkit-clip-path: circle(120vmax at 30vw 50%);
+          clip-path: circle(120vmax at 30vw 50%);
+}
+.slide:nth-child(1) .slide__inner {
+  background-image: url(11.jpg);
+}
+.slide:nth-child(2) .slide__inner {
+  background-image: url(1.jpg);
+}
+.slide:nth-child(3) .slide__inner {
+  background-image: url(2.jpg);
+}
+.slide:nth-child(4) .slide__inner {
+  background-image: url(3.jpg);
+}
+.slide:nth-child(5) .slide__inner {
+  background-image: url(4.jpg);
+}
+.slide:nth-child(6) .slide__inner {
+  background-image: url(5.jpg);
+}
+.slide:nth-child(7) .slide__inner {
+  background-image: url(6.jpg);
+}
+.slide:nth-child(8) .slide__inner {
+  background-image: url(7.jpg);
+}
+.slide:nth-child(9) .slide__inner {
+  background-image: url(8.jpg);
+}
+.slide:nth-child(10) .slide__inner {
+  background-image: url(9.jpg);
+}
+.slide:nth-child(11) .slide__inner {
+  background-image: url(10.jpg);
+}
+.slide__inner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100vw;
+  height: 100vh;
+  margin-left: -50vw;
+  margin-top: -50vh;
+  background-size: cover;
+  background-position: center center;
+}
+.slide__inner:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+   
+}
+.slide__content {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  margin-left: -30px;
+  margin-top: 48px;
+  max-width: 480px;
+  color: #fff;
+}
+.slide__heading {
+  margin-bottom: 20px;
+  font-size: 40px;
+  color: #FF8C00;
+}
+.slide__text {
+  font-size: 30px;
+  color: #FF8C00;
+}
+.slide__text a {
+  color: #FF8C00;
+}
+
+    </style>
+   
+</head>
+
+<body>
+  <div class="slider">
+  <!-- slides -->
+  <div class="slider__slides">
+    <div class="slide s--active">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+     <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+     <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+     <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+     <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+     <div class="slide">
+      <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+    </div>
+    <div class="slide s--prev">
+      <div class="slide__inner">
+            <div class="slide__inner">
+        <div class="slide__content">
+          <h2 class="slide__heading"></h2>
+          <p class="slide__text"></p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <!-- slides end -->
+  <div class="slider__control">
+    <div class="slider__control-line"></div>
+    <div class="slider__control-line"></div>
+  </div>
+  <div class="slider__control slider__control--right m--right">
+    <div class="slider__control-line"></div>
+    <div class="slider__control-line"></div>
+  </div>
+</div>
+
+
+   <script>
+    (function() {
+  var $slides = document.querySelectorAll('.slide');
+  var $controls = document.querySelectorAll('.slider__control');
+  var numOfSlides = $slides.length;
+  var slidingAT = 1300; // sync this with scss variable
+  var slidingBlocked = false;
+
+  [].slice.call($slides).forEach(function($el, index) {
+    var i = index + 1;
+    $el.classList.add('slide-' + i);
+    $el.dataset.slide = i;
+  });
+
+  [].slice.call($controls).forEach(function($el) {
+    $el.addEventListener('click', controlClickHandler);
+  });
+
+  function controlClickHandler() {
+    if (slidingBlocked) return;
+    slidingBlocked = true;
+
+    var $control = this;
+    var isRight = $control.classList.contains('m--right');
+    var $curActive = document.querySelector('.slide.s--active');
+    var index = +$curActive.dataset.slide;
+    (isRight) ? index++ : index--;
+    if (index < 1) index = numOfSlides;
+    if (index > numOfSlides) index = 1;
+    var $newActive = document.querySelector('.slide-' + index);
+
+    $control.classList.add('a--rotation');
+    $curActive.classList.remove('s--active', 's--active-prev');
+    document.querySelector('.slide.s--prev').classList.remove('s--prev');
+    
+    $newActive.classList.add('s--active');
+    if (!isRight) $newActive.classList.add('s--active-prev');
+    
+
+    var prevIndex = index - 1;
+    if (prevIndex < 1) prevIndex = numOfSlides;
+
+    document.querySelector('.slide-' + prevIndex).classList.add('s--prev');
+
+    setTimeout(function() {
+      $control.classList.remove('a--rotation');
+      slidingBlocked = false;
+    }, slidingAT*0.75);
+  };
+}());
+    </script>
+    <script>
+
+    !function (e, t, a) {function r() {for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");requestAnimationFrame(r)}function n() {var t = "function" == typeof e.onclick && e.onclick;e.onclick = function (e) {t && t(), o(e)}}function o(e) {var a = t.createElement("div");a.className = "heart", s.push({el: a,x: e.clientX - 5,y: e.clientY - 5,scale: 1,alpha: 1,color: c()}), t.body.appendChild(a)}function i(e) {var a = t.createElement("style");a.type = "text/css";try {a.appendChild(t.createTextNode(e))} catch (t) {a.styleSheet.cssText = e}t.getElementsByTagName("head")[0].appendChild(a)}function c() {return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"}var s = [];e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {setTimeout(e, 1e3 / 60)}, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()}(window, document);
+    </script>
+</body>
+</html>  
+ 

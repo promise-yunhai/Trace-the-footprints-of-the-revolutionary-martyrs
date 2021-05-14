@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>museum</title>
+   
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans|Oswald'><link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="slider">
+  <div class="items-group">
+    <!-- 四个跳转页面，可自行调整 -->
+    <div class="item">
+      <div class="block">
+        <span class="circleLight"></span>
+        <div class="text">
+          <h2></h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="block">
+        <span class="circleLight"></span>
+        <div class="text">
+          <h2></h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="block">
+        <span class="circleLight"></span>
+        <div class="text">
+          <h2></h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="block">
+        <span class="circleLight"></span>
+        <div class="text">
+          <h2></h2>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 菜单效果 -->
+  <div class="navigations">
+    <ul class="dots">
+  
+    </ul>
+  </div>
+</div>
+
+ 
+<!-- partial -->
+  <script src='script.js'>
+
+  </script>
+<script>
+// 鼠标坐标
+var mouse = {
+    X   : 0,
+    Y   : 0,
+    CX  : 0,
+    CY  : 0
+  },
+  block = {
+    X   : mouse.X,
+    Y   : mouse.Y,
+    CX  : mouse.CX,
+    CY  : mouse.CY
+  },
+  imags = [
+    '1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg'
+  ];
+
+// 获得鼠标指针在页面中的位置
+$('.block').on('mousemove', function(e) {
+mouse.X   = (e.pageX - $(this).offset().left) - $('.block').width() / 2;
+mouse.Y   = (e.pageY - $(this).offset().top) - $('.block').height() / 2;
+})
+
+// 当鼠标指针离开元素时位置
+$('.block').on('mouseleave', function(e) {
+mouse.X   = mouse.CX;
+mouse.Y   = mouse.CY;
+})
+
+// setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。
+setInterval(function(){
+
+block.CY   += (mouse.Y - block.CY) / 12;
+block.CX   += (mouse.X - block.CX) / 12;
+
+$('.block .circleLight').css('background', 'radial-gradient(circle at ' + mouse.X + 'px ' + mouse.Y + 'px, #fff, transparent)')
+$('.block').css({
+  transform : 'scale(1.03) translate(' + (block.CX * 0.05) + 'px, ' + (block.CY * 0.05) + 'px) rotateX(' + (block.CY * 0.05) + 'deg) rotateY(' + (block.CX * 0.05) + 'deg)'
+})
+
+}, 20);
+
+// 为匹配的元素执行动作
+$('.slider .item').each(function(i){
+
+if(i == 0){
+  
+  $(this).addClass('active');
+  $(this).next().addClass('next');
+  $(this).prev().addClass('prev');
+}
+
+// 使用 attr() 方法：--$(this).attr(); 获取节点属性名的值，相当于 getAttribute() 方法
+$(this).attr('id', 'slide-'+i);
+
+// prepend() 方法：在被选元素的开头（仍位于内部）插入指定内容。
+$(this).prepend(
+  $('<div>', {class: 'blur', style: 'background-image: url(' + imags[i] + ');'}),
+  $('<div>', {class: 'bg', style: 'background-image: url(' + imags[i] + ');'})
+)
+
+// 设置背景
+$(this).find('.block').css('background-image', 'url(' + imags[i] + ')')
+
+$('.navigations .dots').append(
+  $('<li>', {class: i == 0 ? 'active' : '', id: i}).on('click', function(){
+  var cSlide = $('.slider #slide-'+$(this).attr('id'));
+    
+    $('.navigations .dots li').removeClass('active');
+    $(this).addClass('active');
+    
+    $('.slider .item').removeClass('active prev next');
+    cSlide.addClass('active');
+    cSlide.next().addClass('next');
+    cSlide.prev().addClass('prev');
+   })
+  )
+})
+
+
+
+</script>
+<script>
+!function (e, t, a) {function r() {for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");requestAnimationFrame(r)}function n() {var t = "function" == typeof e.onclick && e.onclick;e.onclick = function (e) {t && t(), o(e)}}function o(e) {var a = t.createElement("div");a.className = "heart", s.push({el: a,x: e.clientX - 5,y: e.clientY - 5,scale: 1,alpha: 1,color: c()}), t.body.appendChild(a)}function i(e) {var a = t.createElement("style");a.type = "text/css";try {a.appendChild(t.createTextNode(e))} catch (t) {a.styleSheet.cssText = e}t.getElementsByTagName("head")[0].appendChild(a)}function c() {return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"}var s = [];e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {setTimeout(e, 1e3 / 60)}, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()}(window, document);
+</script>
+</body>
+</html>

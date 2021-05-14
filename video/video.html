@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>video</title>
+    <script src="video.js"></script> 
+    <style>
+    body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url(1.jpg);
+        background-size:cover;
+  overflow: hidden;
+}
+
+.play-button {
+  width: 152px;
+  height: 152px;
+  position: relative;
+  cursor: pointer;
+}
+
+.play-backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-image: url(2.jpg);
+  opacity: 0;
+    background-size: cover;
+  visibility: hidden;
+}
+
+.play-close {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 15px);
+  border: none;
+  outline: none;
+  background: deepskyblue;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.play-close::before,
+.play-close::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: rotate(45deg);
+  background-color: white;
+    border-radius: 50px;
+    
+}
+
+.play-close::after {
+  transform: rotate(-45deg);
+  color:black;
+}
+
+.play-circles {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.play-perspective {
+  width: 600px;
+  height: 400px;
+  position: absolute;
+  left: -230px;
+  top: -125px;
+}
+
+.play-triangle {
+  width: 600px;
+  height: 400px;
+  background-color:deepskyblue;
+  cursor: pointer;
+}
+
+    
+    </style>
+</head>
+<body>
+    <div class="play-backdrop"></div>
+<div class="play-button">
+  <svg class="play-circles" viewBox="0 0 152 152">
+    <circle class="play-circle-01" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="343" cx="76" cy="76" r="72.7"/>
+    <circle class="play-circle-02" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="309" cx="76" cy="76" r="65.5"/>
+  </svg>
+  <div class="play-perspective">
+    <button class="play-close"></button>
+    <div class="play-triangle">
+      <div class="play-video">
+        <iframe width="600" height="415" src="2019.8.24.mp4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    TweenMax.set(".play-circle-01", {
+  rotation: 90,
+  transformOrigin: "center"
+})
+
+TweenMax.set(".play-circle-02", {
+  rotation: -90,
+  transformOrigin: "center"
+})
+
+TweenMax.set(".play-perspective", {
+  xPercent: 6.5,
+  scale: .175,
+  transformOrigin: "center",
+  perspective: 1
+})
+
+TweenMax.set(".play-video", {
+  visibility: "hidden",
+  opacity: 0,
+})
+
+TweenMax.set(".play-triangle", {
+  transformOrigin: "left center",
+  transformStyle: "preserve-3d",
+  rotationY: 10,
+  scaleX: 2
+})
+
+const rotateTL = new TimelineMax({ paused: true })
+  .to(".play-circle-01", .7, {
+    opacity: .1,
+    rotation: '+=360',
+    strokeDasharray: 456,
+    ease: Power1.easeInOut
+  }, 0)
+  .to(".play-circle-02", .7, {
+    opacity: .1,
+    rotation: '-=360',
+    strokeDasharray: 411,
+    ease: Power1.easeInOut
+  }, 0)
+
+const openTL = new TimelineMax({ paused: true })
+  .to(".play-backdrop", 1, {
+    opacity: .95,
+    visibility: "visible",
+    ease: Power2.easeInOut
+  }, 0)
+  .to(".play-close", 1, {
+    opacity: 1,
+    ease: Power2.easeInOut
+  }, 0)
+  .to(".play-perspective", 1, {
+    xPercent: 0,
+    scale: 1,
+    ease: Power2.easeInOut
+  }, 0)
+  .to(".play-triangle", 1, {
+    scaleX: 1,
+    ease: ExpoScaleEase.config(2, 1, Power2.easeInOut)
+  }, 0)
+  .to(".play-triangle", 1, {
+    rotationY: 0,
+    ease: ExpoScaleEase.config(10, .01, Power2.easeInOut)
+  }, 0)
+  .to(".play-video", 1, {
+    visibility: "visible",
+    opacity: 1
+  }, .5)
+
+
+const button = document.querySelector(".play-button")
+const backdrop = document.querySelector(".play-backdrop")
+const close = document.querySelector(".play-close")
+
+button.addEventListener("mouseover", () => rotateTL.play())
+button.addEventListener("mouseleave", () => rotateTL.reverse())
+button.addEventListener("click", () => openTL.play())
+backdrop.addEventListener("click", () => openTL.reverse())
+close.addEventListener("click", e => {
+  e.stopPropagation()
+  openTL.reverse()
+})
+
+    
+    
+    
+</script>
+<script>
+
+!function (e, t, a) {function r() {for (var e = 0; e < s.length; e++) s[e].alpha <= 0 ? (t.body.removeChild(s[e].el), s.splice(e, 1)) : (s[e].y--, s[e].scale += .004, s[e].alpha -= .013, s[e].el.style.cssText = "left:" + s[e].x + "px;top:" + s[e].y + "px;opacity:" + s[e].alpha + ";transform:scale(" + s[e].scale + "," + s[e].scale + ") rotate(45deg);background:" + s[e].color + ";z-index:99999");requestAnimationFrame(r)}function n() {var t = "function" == typeof e.onclick && e.onclick;e.onclick = function (e) {t && t(), o(e)}}function o(e) {var a = t.createElement("div");a.className = "heart", s.push({el: a,x: e.clientX - 5,y: e.clientY - 5,scale: 1,alpha: 1,color: c()}), t.body.appendChild(a)}function i(e) {var a = t.createElement("style");a.type = "text/css";try {a.appendChild(t.createTextNode(e))} catch (t) {a.styleSheet.cssText = e}t.getElementsByTagName("head")[0].appendChild(a)}function c() {return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"}var s = [];e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) {setTimeout(e, 1e3 / 60)}, i(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: fixed;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), n(), r()}(window, document);
+</script>
+</body>
+</html>

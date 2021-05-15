@@ -3,10 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Log in</title>
+  <style>
+  #log{
+      font-size:50px;
+      text-align: center;
+      color: blue;
+      margin-top: 280px;
+    }
+
+  </style>
   <link rel="stylesheet" href="./style.css">
 
 </head>
-<body onLoad="init()" ondragstart="return false" oncontextmenu="return false" onselectstart="return false">
+<body onLoad="init()" ondragstart="return false" oncontextmenu="return false" onselectstart="return false" id="mian">
 <section class="container">
   <div class="heading">
     <img class="heading_img" src="https://iconfont.alicdn.com/s/1b8cdd11-88e3-4e9a-86bb-5bb4314a472b_origin.svg">
@@ -30,6 +39,15 @@
   </div>
 </section>
 
+  <div id="log" style="display: none;">
+网站禁止手机访问，只能PC端访问
+</div>
+<script type="text/javascript">
+if ("ontouchstart" in document) {
+    document.getElementById("mian").style.display="none";
+    document.getElementById("log").style.display="block";
+}
+</script>
 <!-- partial -->
   <script src="./script.js"></script>
   <script>
